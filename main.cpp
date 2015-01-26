@@ -19,7 +19,7 @@ const int RESOLUTION_HEIGHT = 300;
 // 点光源
 vector<PointLight> pointLights;
 // 视点
-Point viewPoint(3, 8, 10);
+Point viewPoint(5, 8, 10);
 Vector viewVector(0, -1, -1);
 double screenResolutionRatio = 0.01;
 double screenWdith = RESOLUTION_WIDTH * screenResolutionRatio;
@@ -30,7 +30,7 @@ double k_a = 0.2;
 Color I_a(1.0, 1.0, 1.0);
 double k_d = 0.7;
 double k_s = 0.5;
-int n_s = 6;
+int n_s = 10;
 double f_att_c1 = 0.01;
 double f_att_c2 = 0.15;
 double f_att_c3 = 0.01;
@@ -38,7 +38,7 @@ double f_att_c3 = 0.01;
 Color frameBuffer[RESOLUTION_WIDTH][RESOLUTION_HEIGHT];
 // objects
 vector<Object*> objects;
-Sphere sphere(Point(3.0, 3.0, 2.0), 1.0, Color(0.97, 0.26, 0.31), Color(1.0, 1.0, 1.0));
+Sphere sphere(Point(3.0, 3.0, 7.0), 1.0, Color(0.97, 0.26, 0.31), Color(1.0, 1.0, 1.0));
 Plane plane(Point(0, 0, 0), Point(10, 0, 0), Point(10, 0, 10), Color(0.60, 0.66, 0.94), Color(0.0, 0.0, 0.0));
 
 Point tempP1(6, 2, 6), tempP2(6, 2, 7), tempP3(7, 2, 7), tempP4(7, 2, 6),
@@ -52,7 +52,7 @@ Plane tempPlanes[6] = { Plane(tempP1, tempP2, tempP3, tempCubeColor),
 						Plane(tempP5, tempP6, tempP2, tempCubeColor),
 					  };
 Cube cube(tempPlanes, tempCubeColor);
-Cylinder cylinder(Point(8, 2, 2), Point(8, 5, 2), 1.5, Color(0.87, 0.70, 0.97));
+Cylinder cylinder(Point(5, 2, 3), Point(5, 4, 3), 1, Color(0.87, 0.70, 0.97));
 
 
 void init() {
