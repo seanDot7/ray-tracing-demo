@@ -8,10 +8,12 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
-#include<math.h>
-#include<string>
-#include<sstream>
+#include <math.h>
+#include <string>
+#include <sstream>
 
+
+#define ACCURACY 0.000001
 using namespace std;
 
 class Vector {
@@ -41,7 +43,7 @@ public:
 	double getZ() { return z; }
 
 
-	Vector& operator=(const Vector& v) {
+	Vector& operator=(const Vector &v) {
 		if (this == &v)
 			return *this;
 		else {
@@ -58,25 +60,26 @@ public:
 		return buffer.str();
 	}
 
-	bool operator==(const Vector& v) {
+	bool operator==(const Vector &v) {
+
 		if (this == &v)
 			return true;
 		else
-			return (x == v.x && y == v.y && z == v.z);
+			return (fabs(x - v.x) < ACCURACY && fabs(y - v.y) < ACCURACY && fabs(z - v.z) < ACCURACY);
 	}
 
-	bool operator!=(const Vector& v) const {
+	bool operator!=(const Vector &v) const {
 		if (this == &v)
 			return false;
 		else
-			return !(x == v.x && y == v.y && z == v.z);
+			return !(fabs(x - v.x) < ACCURACY && fabs(y - v.y) < ACCURACY && fabs(z - v.z) < ACCURACY);
 	}
 
-	Vector operator+(const Vector& v) const {
+	Vector operator+(const Vector &v) const {
 		return Vector(x + v.x, y + v.y, z + v.z);
 	}
 
-	Vector operator-(const Vector& v) const {
+	Vector operator-(const Vector &v) const {
 		return Vector(x - v.x, y - v.y, z - v.z);
 	}
 
@@ -84,12 +87,41 @@ public:
 		return Vector(-x, -y, -z);
 	}
 
-	Vector operator*(const double& c) const {
+	Vector operator*(const double &c) const {
 		return Vector(x * c, y * c, z * c);
 	}
 
-	Vector& operator/(const double&c) const {
+	Vector operator/(const double &c) const {
 		return Vector(x / c, y / c, z / c);
+	}
+
+	bool hasSameDirectionWith(const Vector &v) const {
+		double k = 1.0;
+		if (x != 0 && v.x != 0)
+			k = v.x / x;
+		else if (y != 0 && v.y != 0)
+			k = v.y / y;
+		else if (z != 0 && v.z != 0)
+			k = v.z / z;
+		if (k < 0)
+			return false;
+		else
+			return ((*this) * k == v);
+	}
+
+	double getRatio(const Vector &v) {
+		double k = 0.0;
+		if (x != 0 && v.x != 0)
+			k = x / v.x;
+		else if (y != 0 && v.y != 0)
+			k = y / v.y;
+		else if (z != 0 && v.z != 0)
+			k = z / v.z;
+
+		if ((*this) == v * k)
+			return k;
+		else
+			return 0.0;
 	}
 
 	double length() {

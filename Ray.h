@@ -20,7 +20,7 @@ public:
 	Color color;
 
 	Ray(){}
-	Ray(const Point &point, const Vector &vector, const Color &color) {
+	Ray(const Point &point, const Vector &vector, const Color &color = Color(0, 0, 0)) {
 		this->origin = point;
 		this->direction = vector;
 		this->color = color;
